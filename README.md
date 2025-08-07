@@ -1,5 +1,18 @@
-\# Vaccine Center Registration System 🏥
+## 🚫 License Notice
 
+This project is protected under **All Rights Reserved**.
+
+You may not:
+- Copy
+- Modify
+- Distribute
+- Publish
+- Use this code in any form without explicit permission.
+
+⚠ Unauthorized use may result in legal action.
+
+
+\# Vaccine Center Registration System 
 
 
 A web-based registration system built using \*\*Django\*\* for registering vaccine centers across Kerala.
