@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: url('{% static 'images/Group of doctors standing at hospital building.jpg'%}') no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: #000000;
+    }
+    
+    .register-container {
+        background: rgba(255, 255, 255, 0.388);
+        padding: 30px 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 100px;
+    }
+    
+    .register-container h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+    
+    .form-group input {
+        width: 95%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+    
+    .register-btn {
+        width: 50%;
+        padding: 10px;
+        background-color: #5174ff;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-left: 100px;
+    }
+    
+    .register-btn:hover {
+        background-color: #a00000b1;
+    }
+    
+    .signin-link {
+        text-align: center;
+        margin-top: 15px;
+    }
+    
+    .signin-link a {
+        color: #224fff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    @media (max-width: 600px) {
+        .register-container {
+            padding: 15px;
+        }
+    
+        .register-container h1 {
+            font-size: 20px;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Log In</h1>
+        <form action="{% url 'DBLogin' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Email</label>
+                <input type="text" id="username" name="txtEmail" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="txtPassword" placeholder="Enter your password" required autocomplete="off">
+            </div>
+            
+            {% if error %}
+                <p style="color:red">{{ error }}</p>
+            {% endif %}
+
+            <button type="submit" class="register-btn">Login</button>
+        </form>
+
+        <div class="extra-links">
+            <a href="{% url 'forgot_password' %}">Forgot Password?</a>
+        </div>
+
+        <div class="signin-link">
+            <p>Don't have an account? <a href="{% url 'userreg' %}">Sign Up</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% extends 'master.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Your Notifications</h2>
+    <button id="clear-notifications" class="btn btn-danger">Clear All</button>
+
+    <ul class="notification-list" id="notification-container">
+        {% for notification in notifications %}
+        <li class="notification-item">
+            <strong>From: {{ notification.health_center.center_name }}</strong>  
+            <p>{{ notification.message }}</p>
+            <small class="timestamp">{{ notification.created_at|date:"F d, Y h:i A" }}</small> 
+
+            {% if notification.document %}
+                <br>
+                <a href="{{ notification.document.url }}" download>Download Certificate</a>
+            {% endif %}
+        </li>
+        {% empty %}
+        <li>No new notifications.</li>
+        {% endfor %}
+    </ul>
+    
+</div>
+<script>
+    document.getElementById("clear-notifications").addEventListener("click", function () {
+        document.getElementById("notification-container").innerHTML = "<li>No new notifications.</li>";
+        document.getElementById("notification-badge").style.display = "none"; // Hide badge
+    });
+</script>
+<style>
+    .notification-list {
+        list-style: none;
+        padding: 0;
+    }
+    .notification-list li {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    .timestamp {
+        display: block;
+        font-size: 12px;
+        color: gray;
+        margin-top: 5px;
+    }
+    .notification-list a {
+        color: #098886d2;
+        text-decoration: none;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+        .otp-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .otp-input {
+            width: 40px;
+            height: 50px;
+            text-align: center;
+            font-size: 20px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .otp-input:focus {
+            border-color: #007bff;
+        }
+        .submit-btn, .resend-btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .submit-btn:hover, .resend-btn:hover {
+            background-color: #0056b3;
+        }
+        #timer {
+            margin-top: 10px;
+            color: #d9534f;
+            font-weight: bold;
+        }
+        .resend-btn {
+            display: none;
+            background-color: #28a745;
+        }
+        .resend-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+    <script>
+        function startTimer() {
+            let timer = document.getElementById("timer");
+            let resendBtn = document.getElementById("resend-btn");
+
+            // Get stored countdown time, or set to 60 seconds
+            let countdown = sessionStorage.getItem("otpCountdown") ? parseInt(sessionStorage.getItem("otpCountdown")) : 60;
+
+            resendBtn.style.display = "none";
+
+            let interval = setInterval(function() {
+                if (countdown > 0) {
+                    timer.innerText = "Resend OTP in " + countdown + "s";
+                    countdown--;
+                    sessionStorage.setItem("otpCountdown", countdown); // Save countdown in sessionStorage
+                } else {
+                    clearInterval(interval);
+                    timer.innerText = "";
+                    resendBtn.style.display = "block"; // Show resend button
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            sessionStorage.setItem("otpCountdown", 60);
+            startTimer();
+        }
+
+        window.onload = function() {
+            startTimer();
+            let inputs = document.querySelectorAll(".otp-input");
+            inputs[0].focus();
+
+            inputs.forEach((input, index) => {
+                input.addEventListener("input", function() {
+                    if (this.value.length === 1 && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                });
+                input.addEventListener("keydown", function(event) {
+                    if (event.key === "Backspace" && this.value === "" && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+            });
+        };
+
+        function submitOTP() {
+            let otpValue = "";
+            document.querySelectorAll(".otp-input").forEach(input => {
+                otpValue += input.value;
+            });
+            document.getElementById("otp-field").value = otpValue;
+            document.getElementById("otp-form").submit();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>OTP Verification</h2>
+        <p>Enter the OTP sent to your email: <b>{{ email }}</b></p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form id="otp-form" method="POST">
+            {% csrf_token %}
+            <div class="otp-container">
+                <input type="text" class="otp-input" maxlength="1" required>
+                <input type="text" class="otp-input" maxlength="1" required>
+                <input type="text" class="otp-input" maxlength="1" required>
+                <input type="text" class="otp-input" maxlength="1" required>
+                <input type="text" class="otp-input" maxlength="1" required>
+                <input type="text" class="otp-input" maxlength="1" required>
+            </div>
+            <input type="hidden" name="otp" id="otp-field">
+            <button type="button" class="submit-btn" onclick="submitOTP()">Verify</button>
+        </form>
+
+        <p id="timer">Resend OTP in 60s</p>
+        <form action="{% url 'resend_otp' %}" method="POST">
+            {% csrf_token %}
+            <button id="resend-btn" type="submit" class="resend-btn" onclick="resetTimer()">Resend OTP</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+{% extends 'centermain.html' %}
+{% block content %}
+<center style="padding-top: 10px;">
+    <div class="header">
+        <h2 class="ccl">Completed Vaccinations</h2>
+    </div>    
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>User</th>
+                <th>Vaccine</th>
+                <th>Dose</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in completed_bookings %}
+            <tr>
+                <td>{{ booking.name }}</td>
+                <td>{{ booking.vaccine_name }}</td>
+                <td>{{ booking.dose }}</td>
+                <td>{{ booking.date }}</td>
+                <td>{{ booking.time}}</td>
+                <td>
+                    <span class="badge bg-success" style="color: green;">{{ booking.status }}</span>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No completed users available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</center>
+<style>
+    .header {
+        font-family: sanserif;
+        font-size: 18px;
+        padding: 5px 10px;
+        background-color:rgb(14, 147, 7);
+        border-radius: 100px;
+        width: 400px;
+        height: 50px;
+    }
+    .ccl {
+        margin-top: 5px;
+        color: white;
+    }
+    .table {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        width: 900px;
+        padding: 10px;
+    }
+
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle;
+        padding: 10px;
+    }
+
+    .table-dark th {
+        background-color:rgb(5, 66, 126) !important;
+        color: white;
+    }
+
+    .table tbody tr:hover {
+        background: #f8f9fa;
+    }
+
+    .badge.bg-success {
+        font-size: 18px;
+        padding: 5px 10px;
+    }
+</style>
+
+{% endblock %}

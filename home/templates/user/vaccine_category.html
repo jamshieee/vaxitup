@@ -1,0 +1,205 @@
+{% extends "master.html" %}
+{% block content %}
+{% load static %}
+
+    <style>
+        .extra-info {
+            background:rgb(255, 255, 255);
+            box-shadow: 10px 13px 4px rgba(0, 0, 134, 0.17);
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 10px;
+            width: 100%;
+        }
+        .extra-info h2 {
+            color: #14518e;
+        }
+        .extra-info ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .extra-info li {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        /* Explore Vaccines Section */
+        .explore-vaccines {
+            box-shadow: -10px 13px 4px rgba(0, 20, 79, 0.11);
+            padding: 10px;
+            margin-top: 70px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 100%; /* Reduced width */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .explore-vaccines h2 {
+            color: #14518e;
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+        .explore-vaccines p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .explore-vaccines-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 15px;
+            background-color: #14518e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .explore-vaccines-btn:hover {
+            background-color: #14518e;
+        }
+        /* Vaccine Categories Section */
+        .vaccine-categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            margin-top: 70px;
+        }
+        .category-card {
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 250px;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .category-card:hover {
+            transform: scale(1.05);
+        }
+        .category-icon {
+            font-size: 40px;
+            color: #14518e;
+            margin-bottom: 10px;
+        }
+        .category-arrow {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 18px;
+            color: #14518e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/category.css' %}">
+
+    <div class="container">
+        <section class="hero">
+            <img src="{% static 'images/vac.jpg' %}" alt="Vaccine Image">
+            <div class="description">
+                <h1>Book Your Vaccine Today</h1>
+                <p>Get vaccinated against harmful diseases and protect yourself and your loved ones. Follow the easy steps to book your vaccine appointment now. It’s quick and simple!</p>
+            </div>
+        </section>
+
+        <section class="steps">
+            <div class="step-card">
+                <img src="{% static './images/img3.jpeg'%}" alt="Step 1">
+                <h3>Step 1: Select a Vaccine</h3>
+                <p>Search your required Vaccine from the vaccines list</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-card">
+                <img src="{% static './images/logoh.jpg'%}" alt="Step 2">
+                <h3>Step 2: Select a Center</h3>
+                <p>Choose the nearest vaccination center to you.</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-card">
+                <img src="{% static './images/img3.jpeg'%}" alt="Step 3">
+                <h3>Step 3: Schedule Appointment</h3>
+                <p>Pick a suitable time and date for your vaccine dose.</p>
+            </div>
+        </section>
+
+        <section class="explore-vaccines">
+            <h2>Explore Available Vaccines</h2>
+            <p>Learn more about different vaccines, their effectiveness, and which one suits you best.</p>
+            <a href="{% url 'search_vaccines' %}" class="explore-vaccines-btn">Explore Vaccines</a>
+        </section>
+
+        <section class="vaccine-categories">
+            <div class="category-card">
+                <i class="fas fa-baby category-icon"></i>
+                <h3>Kids</h3>
+                <p>Vaccines for children, including MMR, polio, and hepatitis B.</p>
+                <a href="#" class="category-arrow">→</a>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-user-graduate category-icon"></i>
+                <h3>Youngsters</h3>
+                <p>Vaccinations for teenagers and young adults, such as HPV and meningococcal.</p>
+                <a href="#" class="category-arrow">→</a>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-user-alt category-icon"></i>
+                <h3>Old Aged</h3>
+                <p>Vaccines for elderly individuals, including flu shots and shingles vaccines.</p>
+                <a href="#" class="category-arrow">→</a>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-female category-icon"></i>
+                <h3>Pregnant Women</h3>
+                <p>Vaccines like Tdap and influenza to protect both mother and baby.</p>
+                <a href="#" class="category-arrow">→</a>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-plane category-icon"></i>
+                <h3>Travelers</h3>
+                <p>Vaccinations for international travelers, such as yellow fever and typhoid.</p>
+                <a href="#" class="category-arrow">→</a>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-user-md category-icon"></i>
+                <h3>Healthcare Workers</h3>
+                <p>Recommended vaccines for medical professionals, like hepatitis B and COVID-19.</p>
+                <a href="#" class="category-arrow">→</a>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-syringe category-icon"></i>
+                <h3>Others</h3>
+                <p>Other vaccinations for specific conditions or professions.</p>
+                <a href="#" class="category-arrow">→</a>
+            </div>
+        </section>
+
+         <!-- Extra Information Sections -->
+         <section class="extra-info">
+            <h1>Why Vaccination is Important</h1>
+            <p>Vaccination is one of the most effective ways to prevent the spread of infectious diseases. It not only protects individuals but also contributes to herd immunity, safeguarding those who cannot get vaccinated.</p>
+            <ul>
+                <li>🛡️ **Prevents severe illness and complications from diseases**</li>
+                <li>🌍 **Reduces the spread of viruses in the community**</li>
+                <li>💉 **Ensures long-term immunity with minimal side effects**</li>
+                <li>👨‍👩‍👧‍👦 **Protects vulnerable groups such as children and elderly individuals**</li>
+            </ul>
+        </section>
+    
+        <section class="extra-info">
+            <h1>Qualities of a Safe and Effective Vaccine</h1>
+            <p>A vaccine must meet high safety and quality standards before being distributed for public use. Here are the essential qualities of a good vaccine:</p>
+            <ul>
+                <li>✅ **Scientifically tested and approved by health organizations**</li>
+                <li>✅ **Provides long-lasting immunity against targeted diseases**</li>
+                <li>✅ **Minimal side effects, with benefits outweighing risks**</li>
+                <li>✅ **Easily accessible and efficiently distributed worldwide**</li>
+            </ul>
+        </section>
+    </div>
+{% endblock %}

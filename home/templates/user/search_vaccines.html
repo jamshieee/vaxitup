@@ -1,0 +1,199 @@
+{% extends "master.html" %}
+{% block content %}
+{% load static %}
+
+<div class="container">
+    <div class="header-container">
+        <h1 class="page-title">Available Vaccines</h1>
+        <div class="search-container">
+            <input type="text" id="searchBar" placeholder="Search for vaccines...">
+        </div>
+    </div>
+
+    <hr class="title-line">
+
+    <div class="vaccine-list" id="vaccineList">
+        {% for vaccine in vaccines %}
+        <div class="vaccine-row">
+            <div class="vaccine-info">
+                <strong>{{ vaccine.vaccine_name }}</strong>
+                <p>Category: {{ vaccine.vaccine_category }}</p>
+                <p>Doses: {{ vaccine.doses }}</p>
+            </div>
+            <div class="vaccine-action">
+                <button class="view-details"
+                        data-name="{{ vaccine.vaccine_name }}"
+                        data-details="{{ vaccine.vaccine_details }}">
+                    View Details
+                </button>
+                <a href="{% url 'select_center' %}?vaccine={{ vaccine.vaccine_name }}" 
+                   class="booking-btn"
+                   onclick="storeVaccine('{{ vaccine.vaccine_name }}')">
+                   Book Now
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <p>No vaccines found. Try searching for another name.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Vaccine Details Popup -->
+<div id="detailsPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2 id="popupTitle"></h2>
+        <p id="popupDetails"></p>
+    </div>
+</div>
+
+<!-- JavaScript for Search, Storage, and Popup -->
+<script>
+    function storeVaccine(name) {
+        localStorage.setItem("selectedVaccine", name);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let searchBar = document.getElementById("searchBar");
+        let vaccineRows = [...document.querySelectorAll(".vaccine-row")];
+
+        searchBar.addEventListener("input", function () {
+            let query = searchBar.value.trim().toLowerCase();
+
+            vaccineRows.forEach(row => {
+                let vaccineName = row.querySelector(".vaccine-info strong").textContent.toLowerCase();
+                row.style.display = vaccineName.includes(query) ? "flex" : "none";
+            });
+        });
+
+        // Attach event listener to all "View Details" buttons
+        document.querySelectorAll(".view-details").forEach(button => {
+            button.addEventListener("click", function() {
+                let name = this.getAttribute("data-name");
+                let details = this.getAttribute("data-details");
+                showDetails(name, details);
+            });
+        });
+    });
+
+    function showDetails(name, details) {
+        document.getElementById("popupTitle").textContent = name;
+        document.getElementById("popupDetails").textContent = details;
+        document.getElementById("detailsPopup").style.display = "block";
+    }
+
+    function closePopup() {
+        document.getElementById("detailsPopup").style.display = "none";
+    }
+</script>
+
+<style>
+    .container {
+        padding: 20px;
+        max-width: 800px;
+        margin: auto;
+    }
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .search-container {
+        display: flex;
+        justify-content: flex-end;
+    }
+    #searchBar {
+        padding: 10px;
+        width: 250px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    .page-title {
+        font-size: 28px;
+        color: #007bff;
+    }
+    .title-line {
+        width: 100%;
+        margin: 10px 0;
+        border: 1px solid #007bff;
+    }
+    .vaccine-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .vaccine-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+    .vaccine-row:hover {
+        transform: scale(1.02);
+    }
+    .vaccine-info {
+        flex: 2;
+        text-align: left;
+        font-size: 16px;
+    }
+    .vaccine-action {
+        flex: 1;
+        text-align: right;
+    }
+    .view-details {
+        padding: 8px 12px;
+        background-color: #17a2b8;
+        color: white;
+        font-size: 14px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+    .view-details:hover {
+        background-color: #138496;
+    }
+    .booking-btn {
+        padding: 8px 12px;
+        background-color: #28a745;
+        color: white;
+        font-size: 14px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+    .booking-btn:hover {
+        background-color: #218838;
+    }
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        z-index: 1000;
+    }
+    .popup-content {
+        text-align: center;
+    }
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+</style>
+
+{% endblock %}

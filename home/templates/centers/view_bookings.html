@@ -1,0 +1,139 @@
+{% extends 'centermain.html' %}
+
+{% block content %}
+<center style="margin-top: 10px;">
+    <div class="book">
+        <h2 class="god" style="color: #fff;">Vaccine Bookings</h2>
+    </div>
+<div class="table-container">
+    <table class="table table-striped text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>User</th>
+                <th>Vaccine</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in pending_bookings %}
+            <tr>
+                <td>{{ booking.name }}</td>
+                <td>{{ booking.vaccine_name }}</td>
+                <td>{{ booking.date }}</td>
+                <td>{{ booking.time }}</td>
+                <td>
+                    <span class="badge bg-warning text-dark">{{ booking.status }}</span>
+                </td>
+                <td>
+                    <a href="{% url 'update_booking_status' booking.id 'completed' %}" class="btn btn-success btn-sm">
+                        <i class="fas fa-check-circle"></i> Complete
+                    </a>
+                    <a href="{% url 'update_booking_status' booking.id 'rejected' %}" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash"></i> Reject
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-muted">No pending bookings available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</center>
+<!-- Table Styling -->
+<style>
+    body {
+        background: linear-gradient(135deg, #f3e7e9 0%, #e3eeff 100%);
+        min-height: 100vh;
+    }
+    .book {
+        font-family: 'Poppins', sans-serif;
+        font-size: 22px;
+        padding: 10px 20px;
+        background-color: #14518e;
+        border-radius: 30px;
+        width: 420px;
+        height: 56px;
+        color: white;
+        margin-bottom: 18px;
+        box-shadow: 0 2px 8px rgba(9,136,134,0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .book::before {
+        content: '\1F4DD'; /* memo icon */
+        font-size: 26px;
+        margin-right: 12px;
+    }
+    .table-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(44,62,80,0.12);
+        padding: 24px 18px;
+    }
+    .table {
+        font-size: 15px;
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 0;
+    }
+    .table th, .table td {
+        padding: 14px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+    .table-dark th {
+        background-color: #14518e !important;
+        color: white;
+        font-size: 17px;
+    }
+    .badge {
+        padding: 6px 14px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        background: #ffe082;
+        color: #333;
+        box-shadow: 0 2px 8px rgba(255,224,130,0.08);
+    }
+    .btn {
+        padding: 10px 18px;
+        font-size: 15px;
+        margin: 2px;
+        border-radius: 8px;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(9,136,134,0.08);
+        border: none;
+        transition: background 0.2s;
+    }
+    .btn-success {
+        background: #43a047;
+        color: white;
+    }
+    .btn-success:hover {
+        background: #388e3c;
+    }
+    .btn-danger {
+        background: #e53935;
+        color: white;
+    }
+    .btn-danger:hover {
+        background: #b71c1c;
+    }
+    .btn i {
+        margin-right: 5px;
+    }
+</style>
+
+<!-- FontAwesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+{% endblock %}

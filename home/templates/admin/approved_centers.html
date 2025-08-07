@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static%}
+<h2 class="title">Approved Centers</h2>
+<div class="table-container">
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Profile</th>
+                <th>Center Name</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for center in centers %}
+            <tr class="fade-in">
+                <td>{{ forloop.counter }}</td>  <!-- Auto Numbering -->
+                <td>
+                    {% if center.profile_image %}
+                        <img src="{{ center.profile_image.url }}" class="profile-img" alt="Center Profile">
+                    {% else %}
+                        <img src="{% static './images/logou.jpg' %}" class="profile-img" alt="Default Profile">
+                    {% endif %}
+                </td>
+                <td>{{ center.center_name }}</td>
+                <td>{{ center.email }}</td>
+                <td>
+                    <a href="{% url 'unapprove_center' center.id %}" class="btn btn-warning">
+                        ❌ Unapprove
+                    </a>
+                    <form action="{% url 'delete_center' center.id %}" method="post" class="inline-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('Are you sure you want to delete this center?');">
+                            🗑️ Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="no-data">No approved centers.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- CSS Styles -->
+<style>
+    /* Page Title */
+    .title {
+        text-align: center;
+        font-size: 28px;
+        color: #2C3E50; /* Dark Blue */
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    /* Table Container */
+    .table-container {
+        max-width: 1100px;
+        margin: auto;
+        overflow-x: auto;
+    }
+
+    /* Styled Table */
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #F8F9FA; /* Light Gray */
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .styled-table th, .styled-table td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #34495E; /* Darker Blue for Row Borders */
+    }
+
+    .styled-table th {
+        background-color: #2C3E50; /* Dark Blue */
+        color: white;
+        font-weight: bold;
+        border-bottom: 2px solid white;
+    }
+
+    .styled-table tr:nth-child(even) {
+        background-color: #EAECEE; /* Light Gray Alternate Rows */
+    }
+
+    .styled-table tr:hover {
+        background-color: #D5DBDB; /* Slightly Darker Gray on Hover */
+    }
+
+    /* Profile Image */
+    .profile-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #098886;
+    }
+
+    /* No Data Message */
+    .no-data {
+        text-align: center;
+        font-size: 16px;
+        color: #555;
+        padding: 20px;
+    }
+
+    /* Button Styles */
+    .btn {
+        padding: 8px 14px;
+        border: none;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 10px;
+        text-decoration: none;
+        display: inline-block;
+        transition: background 0.3s ease-in-out;
+    }
+
+    .btn-warning {
+        border: 2px solid rgb(0, 38, 255);
+        color: red;
+    }
+
+    .btn-warning:hover {
+        background-color:rgb(0, 38, 255);
+    }
+
+    .btn-danger {
+        background-color: #E74C3C; /* Red */
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #C0392B;
+    }
+
+    /* Inline Form */
+    .inline-form {
+        display: inline;
+    }
+
+    /* Animation: Fast Fade-In for Rows */
+    .fade-in {
+        animation: fadeInFast 1.0s ease-in-out;
+    }
+
+    @keyframes fadeInFast {
+        from {
+            opacity: 0;
+            transform: translateY(5px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+{% endblock %}

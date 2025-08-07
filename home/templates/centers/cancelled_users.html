@@ -1,0 +1,85 @@
+{% extends 'centermain.html' %}
+{% block content %}
+<center style="margin-top:10px;">
+    <div class="head">
+    <h2 class="hod">Cancelled Vaccinations</h2>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Vaccine</th>
+                    <th>Dose</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in cancelled_bookings %}
+                <tr>
+                    <td>{{ booking.name }}</td>
+                    <td>{{ booking.vaccine_name }}</td>
+                    <td>{{ booking.dose }}</td>
+                    <td>{{ booking.date }}</td>
+                    <td>{{ booking.time }}</td>
+                    <td>
+                        <span class="badge bg-success">{{ booking.status }}</span>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">No completed users available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</center>
+<style>
+    .head{
+        font-family: sanserif;
+        font-size: 18px;
+        padding: 5px 10px;
+        background-color:rgb(131, 9, 9);
+        border-radius: 100px;
+        width: 400px;
+        height: 50px;
+    }
+    .hod{
+        margin-top: 5px;
+        color: white;
+    }
+    .table {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        width: 900px;
+        padding: 10px;
+    }
+
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle;
+        padding: 10px;
+    }
+
+    .table-dark th {
+        background-color: #2c3e50 !important;
+        color: white;
+    }
+
+    .table tbody tr:hover {
+        background: #f8f9fa;
+    }
+
+    .badge.bg-success {
+        font-size: 14px;
+        padding: 5px 10px;
+        color: red;
+    }
+</style>    
+{% endblock %}

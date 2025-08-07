@@ -1,0 +1,210 @@
+{% extends "centermain.html" %}
+{% block content %}
+<div class="form-container">
+    <h2 class="form-title">Add Vaccine</h2>
+    <form method="POST">
+        {% csrf_token %}
+
+        {% if messages %}
+        <div class="error">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label><strong>Center Name</strong></label>
+            <input type="text" class="form-control" value="{{ center_name }}" readonly>
+        </div>
+    
+        <div class="form-group">
+            <label><strong>Vaccine Category</strong></label>
+            <select name="vaccine_category" class="form-control" required>
+                <option value="" disabled selected>Select a category</option>
+                <option value="Child Vaccination">Vaccines for Infants & Children</option>
+                <option value="Adult Vaccination">for Adolescents & Adults</option>
+                <option value="Flu Vaccination">for Elderly & High-Risk Individuals</option>
+                <option value="Travel Vaccination">Travel Vaccination</option>
+                <option value="Pregnant Women">Pregnant Women</option>
+                <option value="Others">Others</option>
+            </select>
+        </div>
+    
+        <div class="form-group">
+            <label><strong>Vaccine Name</strong></label>
+            <select name="vaccine_name" class="form-control" required>
+                <option value="" disabled selected>Select a vaccine</option>
+                <option value="BCG">Bacillus Calmette-Guérin (BCG)</option>
+                <option value="HepB-1">Hepatitis B (HepB-1)</option>
+                <option value="OPV">Oral Polio Vaccine</option>
+                <option value="PCV-1">Pneumococcal Conjugate Vaccine (PCV-1)</option>
+                <option value="fIPV-1">Fractional Inactivated Polio Vaccine (fIPV-1)</option>
+                <option value="ROTAVAC">Rotavirus Vaccine</option>
+                <option value="Tetanus">Pentavalent Vaccine (DPT + Hep B + Hib)</option>
+                <option value="Tetanus">Measles-Rubella</option>
+                <option value="Tetanus">JE Vaccine (in endemic areas)</option>
+                <option value="Tetanus">DPT Booster-1</option>
+                <option value="Tetanus">OPV Booster</option>
+                <option value="Tetanus">Tetanus & Diphtheria (Td Vaccine)</option>
+                <option value="Tetanus">HPV (Human Papillomavirus Vaccine)</option>
+                <option value="Tetanus">Varicella (Chickenpox)</option>
+                <option value="Tetanus">Influenza Vaccine</option>
+                <option value="Tetanus">Pneumococcal Vaccine (PCV13 / PPSV23)</option>
+                <option value="Tetanus">Shingles (Herpes Zoster) Vaccine</option>
+                <option value="Tetanus">Yellow Fever</option>
+                <option value="Tetanus">Rabies Vaccine</option>
+                <option value="Tetanus">Tetanus & Diphtheria (Td) Vaccine</option>
+                <option value="Tetanus">Measles, Mumps, Rubella (MMR) Vaccine</option>
+                <option value="Tetanus">Tetanus & Diphtheria (Td) Vaccine</option>
+                <option value="Tetanus Toxoid (TT) Vaccine">Tetanus Toxoid (TT) Vaccine</option>
+                <option value="COVID-19 Vaccine">COVID-19 Vaccine</option>
+                <option value="Pertussis (Whooping Cough) Vaccine">Pertussis (Whooping Cough) Vaccine</option>
+                <option value="Rubella (German Measles) Vaccine">Rubella (German Measles) Vaccine</option>
+                <option value="Hepatitis A">Hepatitis A</option>
+                <option value="Typhoid">Typhoid</option>
+                <option value="Tdap (Tetanus, Diphtheria, Pertussis)">Tdap (Tetanus, Diphtheria, Pertussis)</option>
+                <option value="Meningococcal Vaccine (MenACWY & MenB)">Meningococcal Vaccine (MenACWY & MenB)p</option>
+                <option value="Shingles (Herpes Zoster) Vaccine">Shingles (Herpes Zoster) Vaccine   </option>
+                <option value="Japanese Encephalitis Vaccine">Japanese Encephalitis Vaccine</option>
+            </select>
+        </div>
+    
+        <!-- Two input fields in one row -->
+        <div class="form-row">
+            <div class="form-group">
+                <label><strong>Number of Doses</strong></label>
+                <input type="number" name="doses" class="form-control" required min="1" value="1">
+            </div>
+        
+            <div class="form-group">
+                <label><strong>Availability</strong></label>
+                <select name="availability" class="form-control" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label><strong>Vaccine Details</strong></label>
+            <textarea name="vaccine_details" class="form-control" placeholder="Enter vaccine details..." rows="4" required></textarea>
+        </div>
+    
+        <div class="form-button-container">
+            <button type="submit" class="btn btn-primary">Add Vaccine</button>
+        </div>
+    </form>    
+</div>
+
+<style>
+    /* Apply a modern, clean font */
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f5f7fa;
+    }
+    
+    /* Centering the form */
+    .form-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 90px;
+    }
+    
+    /* Title */
+    .form-title {
+        text-align: center;
+        font-size: 26px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    
+    /* Form row for two columns */
+    .form-row {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    
+    /* Adjusting input field styling */
+    .form-group {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+    
+    .form-group label {
+        font-weight: bold;
+        color: #555;
+        margin-bottom: 5px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: 0.3s ease-in-out;
+        background: #f8f9fc;
+    }
+    
+    /* Focus effect */
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.3);
+    }
+    
+    /* Textarea */
+    .form-group textarea {
+        resize: none;
+    }
+    
+    /* Button Styling */
+    .form-button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+    .btn-primary {
+        width: 180px;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        background: #007bff;
+        color: white;
+        border-radius: 8px;
+        border: none;
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+    }
+    
+    .btn-primary:hover {
+        background: #0056b3;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .form-row {
+            flex-direction: column;
+        }
+    
+        .form-container {
+            width: 90%;
+        }
+    }
+    
+</style>
+{% endblock %}

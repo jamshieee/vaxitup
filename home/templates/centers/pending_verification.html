@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Verification</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+            color: #333;
+        }
+        h2 {
+            color: #007bff;
+            font-size: 24px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        /* Login Button */
+        .login-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+        /* Info Section */
+        .info-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .info-section h3 {
+            color: #007bff;
+            font-size: 20px;
+        }
+        .info-section ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+        .info-section ul li {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        /* Contact Info */
+        .contact {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .contact a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .contact a:hover {
+            text-decoration: underline;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            h2 {
+                font-size: 22px;
+            }
+            .login-btn {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+            .info-section {
+                padding: 15px;
+                max-width: 100%;
+            }
+            .info-section h3 {
+                font-size: 18px;
+            }
+            .info-section ul li {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Your Registration is Being Reviewed</h2>
+    <p>Thank you for registering your health center. Our admin team is reviewing your details. You will be notified once your registration is approved.</p>
+    <a href="{% url 'center_login' %}" class="login-btn">Try to Login</a>
+
+    <!-- Additional Information for Centers -->
+    <div class="info-section">
+        <h3>What Happens Next?</h3>
+        <ul>
+            <li>🔹 Our team verifies your center details and documents.</li>
+            <li>🔹 You will receive an email once approval is completed.</li>
+            <li>🔹 Once approved, you can manage appointments and availability.</li>
+            <li>🔹 If verification takes too long, contact support.</li>
+        </ul>
+
+        <h3>Need Help?</h3>
+        <p class="contact">If you have any questions, feel free to contact our support team:</p>
+        <p class="contact">📧 <a href="mailto:support@vaccinebooking.com">support@vaccinebooking.com</a></p>
+        <p class="contact">📞 <a href="tel:+911234567890">+91 12345 67890</a></p>
+    </div>
+</body>
+</html>

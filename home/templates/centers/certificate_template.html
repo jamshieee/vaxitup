@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaccination Certificate</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .certificate-container {
+            background:url("./cert.png");
+            background-size: cover;
+            width: 800px;
+            padding: 30px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            text-align: center;
+            border: 3px solid black;
+            position: relative;
+            bottom: 30px;
+        }
+        .header {
+            color: black;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding-bottom: 10px;
+            border-bottom: 2px solid black;
+        }
+        .certificate-content {
+            padding: 20px;
+        }
+        .main-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+            margin-top: 20px;
+        }
+        h2 {
+            font-size: 26px;
+            color: black;
+            text-transform: uppercase;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #444;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+        .logo {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            width: 80px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body >
+
+    <div class="certificate-container">
+        <img src="{% static './images/logo3.png' %}" alt="Logo" class="logo">
+        <h1><u>Vaccination Certificate</u></h1>
+
+        <div class="certificate-content">
+            <h2><u>Certificate of Vaccination</u></h2>
+            <p class="main-text">
+                This is to certify that <strong>{{ name }}</strong> has received the <strong>{{ vaccine_name }}</strong> vaccine at <strong>{{ center_name }}</strong> on <strong>{{ date }} at {{ time }}</strong>.
+            </p>
+            <p><strong>Contact:</strong> {{ contact }}</p>
+            <p><strong>Location:</strong> {{ place }}</p>
+        </div>
+
+        <div class="footer">
+            <p>Issued by {{ center_name }}</p>
+            <p>&copy; VaxItUp - {{ date }}</p>
+        </div>
+    </div>
+
+</body>
+</html>

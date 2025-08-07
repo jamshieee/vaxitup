@@ -1,0 +1,190 @@
+{% extends "master.html" %}
+{% block content %}
+{% load static %}
+
+<div class="container">
+    <h1 class="page-title">Select a Health Center</h1>
+    <hr class="title-line">
+
+    <!-- Hidden Input to Store Selected Vaccine -->
+    <input type="hidden" id="selectedVaccine">
+    <input type="hidden" id="selectedVaccineId">
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <form method="GET" action="{% url 'select_center' %}">
+            <input type="hidden" name="vaccine" value="{{ selected_vaccine }}">
+            <input type="text" id="searchBar" name="q" placeholder="Search centers..." value="{{ query }}">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Center List -->
+    <div class="center-grid">
+        {% for center in centers %}
+        <div class="center-card">
+            <!-- Center Image: Show Landscape if Uploaded, Rounded Default Otherwise -->
+            {% if center.profile_image %}
+                <img src="{{ center.profile_image.url }}" class="center-image-landscape" alt="Center Image">
+            {% else %}
+                <img src="{% static 'images/logou.jpg' %}" class="center-image-rounded" alt="Default Image">
+            {% endif %}
+
+            <div class="center-info">
+                <h3 class="center-name">{{ center.center_name }}</h3>
+                <p><strong>📍 Taluk:</strong> {{ center.thaluk }}</p>
+                <p><strong>📞 Contact:</strong> {{ center.phone }}</p>
+                <button class="select-btn" onclick="redirectToBooking('{{ center.center_name }}')">
+                    Book Now
+                </button>
+                
+            </div>
+        </div>
+        {% empty %}
+        <p>No health centers available at the moment.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    function redirectToBooking(centerName) {
+        let vaccineName = localStorage.getItem("selectedVaccine");
+    
+        if (!vaccineName) {
+            alert("No vaccine selected. Please go back and choose a vaccine.");
+            return;
+        }
+    
+        localStorage.setItem("selectedCenter", centerName); // Store selected center
+    
+        window.location.href = `/confirm_booking/?vaccine=${encodeURIComponent(vaccineName)}&center_name=${encodeURIComponent(centerName)}`;
+    }    
+    
+</script>
+
+<!-- Styles -->
+<style>
+    .container {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .search-container {
+        margin-bottom: 15px;
+    }
+
+    #searchBar {
+        padding: 10px;
+        width: 300px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .page-title {
+        font-size: 28px;
+        margin-bottom: 10px;
+        color: #007bff;
+    }
+
+    .title-line {
+        width: 50%;
+        margin: 0 auto 20px auto;
+        border: 1px solid #007bff;
+    }
+
+    /* Center Grid - 4 Cards Per Row */
+    .center-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    /* Center Card */
+    .center-card {
+        background: white;
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .center-card:hover {
+        transform: scale(1.05);
+    }
+
+    /* Center Image - Landscape for Uploaded Images */
+    .center-image-landscape {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    /* Center Image - Rounded for Default Images */
+    .center-image-rounded {
+        width: 100px;
+        height: 96px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #098886;
+    }
+
+    /* Center Info */
+    .center-info {
+        font-size: 16px;
+        color: #333;
+        padding: 10px;
+    }
+
+    .center-name {
+        font-size: 20px;
+        font-weight: bold;
+        color: #098886;
+    }
+
+    /* Select Button */
+    .select-btn {
+        padding: 8px 12px;
+        background-color: #28a745;
+        color: white;
+        font-size: 14px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+        transition: background 0.3s ease-in-out;
+    }
+
+    .select-btn:hover {
+        background-color: #218838;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .center-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .center-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 500px) {
+        .center-grid {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+</style>
+
+{% endblock %}

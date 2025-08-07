@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VaxItUp</title>
+    {% load static %}
+    <!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/centerhome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/remainder.css' %}">
+    <link rel="stylesheet" href="{% static 'css/editvaccines.css' %}">
+    
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static './images/logo2.png' %}" alt="Logo">
+            <span class="site-name">VaxItUp</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'center_welcome' %}" data-text="welcome"><i class="fas fa-backward"></i><span class="icon-text">welcome</span></a></li>
+            <li><a href="{% url 'center_home' %}" data-text="Home"><i class="fas fa-home"></i><span class="icon-text">Home</span></a></li>
+            <li><a href="{% url 'center_profile' %}" data-text="profile"><i class="fas fa-user"></i><span class="icon-text">Profile</span></a></li>
+            <li><a href="{% url 'center_login' %}" data-text="logout"><i class="fas fa-sign-out-alt"></i><span class="icon-text">Logout</span></a></li>
+        </ul>
+    </nav>
+    {%block content%}
+
+
+{%endblock%}
+{% comment %} <footer class="footer">
+    <p>&copy; 2025 Vaccine Booking System. All Rights Reserved.</p>
+    <p>Contact us: support@vaccinebooking.com</p>
+</footer>
+<style>
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #14518e;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 14px;
+    }
+    p{
+        color: white;
+    }
+</style> {% endcomment %}
+</body>
+</html>

@@ -1,0 +1,145 @@
+{% extends "centermain.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+/* Page wrapper */
+.profile-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px;
+}
+
+/* Profile container */
+.profile-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Profile image */
+.profile-image-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #098886;
+}
+
+/* Default icon when no profile image */
+.default-profile {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: #777;
+    border: 3px solid #098886;
+}
+
+/* Profile title */
+.profile-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #098886;
+    margin-top: 10px;
+}
+
+/* Profile details */
+.profile-details {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+    text-align: left;
+    padding: 0 10px;
+}
+
+.profile-details strong {
+    color: #098886;
+}
+
+/* Buttons */
+.profile-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.profile-btn, .edit-btn {
+    background: #098886;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.profile-btn:hover, .edit-btn:hover {
+    background: #07706a;
+    transform: scale(1.05);
+}
+
+.edit-btn {
+    background: #f8a100;
+}
+
+.edit-btn:hover {
+    background: #d68b00;
+}
+</style>
+
+<div class="profile-wrapper">
+    <div class="profile-container">
+        
+        <div class="profile-image-container">
+            {% if center.profile_image %}
+                <img src="{{ center.profile_image.url }}" class="profile-image" alt="Profile Photo">
+            {% else %}
+                <div class="default-profile">👤</div>
+            {% endif %}
+        </div>
+
+        <h1 class="profile-title">{{ center.center_name }}</h1>
+        
+        <p class="profile-details">
+            <strong>Phone:</strong> {{ center.phone }}<br>
+            <strong>Email:</strong> {{ center.email }}<br>
+            <strong>Taluk:</strong> {{ center.thaluk }}<br>
+            <strong>District:</strong> {{ center.district }}<br>
+            <strong>Approval Status:</strong> 
+            {% if center.is_approved %}
+                ✅ Approved
+            {% else %}
+                ❌ Pending Approval
+            {% endif %}
+        </p>
+
+        <div class="profile-buttons">
+            <a href="{% url 'center_home' %}" class="profile-btn">Back to Dashboard</a>
+            <a href="{% url 'edit_center_profile' center_id=center.center_id %}" class="edit-btn">Edit Profile</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

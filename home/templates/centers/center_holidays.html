@@ -1,0 +1,113 @@
+{% extends "centermain.html" %}
+{% block content %}
+{% load static %}
+
+<center>
+<div class="container mt-5 text-center">
+    <h3 class="mb-4">Update Holiday Dates for {{ center.center_name }}</h3>
+
+    <!-- Display Messages -->
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="holiday-form-container">
+        <form method="post" action="{% url 'update_center_holidays' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Select Holiday Dates</label>
+                <input type="date" class="form-control" name="holiday_dates" required>
+                <br>
+                <br>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Mark as Holiday</button>
+        </form>
+    </div>
+</div>
+
+<!-- Display Existing Holidays -->
+<div class="container mt-5 text-center">
+    <h3 class="mb-4">Existing Holidays</h3>
+
+    <div class="holiday-table-container">
+        <div class="table-responsive">
+            <table class="table table-bordered" style="width: 500px;">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Holiday Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for holiday in holidays %}
+                    <tr>
+                        <td>{{ holiday.date }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td class="text-center">No holidays marked yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</center>   
+<style>
+    .holiday-form-container {
+        max-width: 500px;
+        margin: 0 auto;
+        background:rgb(255, 255, 255);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .holiday-table-container {
+        width: 600px;
+        margin: 0 auto;
+    }
+
+    .table {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        width: 100px;
+    }
+
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle;
+        color: red;
+    }
+
+    .table-dark th {
+        background-color: #2c3e50 !important;
+        color: white;
+    }
+
+    .table tbody tr:hover {
+        background:rgb(0, 128, 255);
+    }
+
+    .btn-primary {
+        width: 100%;
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .container h3 {
+        color: #2c3e50;
+        font-weight: bold;
+    }
+</style>
+
+{% endblock %}

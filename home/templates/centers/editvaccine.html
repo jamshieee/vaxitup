@@ -1,0 +1,130 @@
+{% extends "centermain.html" %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/editvaccines.css' %}">
+<div class="form-container">
+    <h2 class="form-title">Edit Vaccine</h2>
+    <form method="POST">
+        {% csrf_token %}
+
+        {% if messages %}
+        <div class="error">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label><strong>Center Name</strong></label>
+            <input type="text" class="form-control" value="{{ center_name }}" readonly>
+        </div>
+    
+        <div class="form-group">
+            <label><strong>Vaccine Category</strong></label>
+            <select name="vaccine_category" class="form-control" required>
+                <option value="" disabled>Select a category</option>
+                <option value="Child Vaccination" {% if vaccine.vaccine_category == "Child Vaccination" %}selected{% endif %}>Kids</option>
+                <option value="Adult Vaccination" {% if vaccine.vaccine_category == "Adult Vaccination" %}selected{% endif %}>Youngsters</option>
+                <option value="Flu Vaccination" {% if vaccine.vaccine_category == "Flu Vaccination" %}selected{% endif %}>Old Aged</option>
+                <option value="Travel Vaccination" {% if vaccine.vaccine_category == "Travel Vaccination" %}selected{% endif %}>Travel Vaccination</option>
+                <option value="Pregnant Women" {% if vaccine.vaccine_category == "Pregnant Women" %}selected{% endif %}>Pregnant Women</option>
+                <option value="Healthcare Workers" {% if vaccine.vaccine_category == "Healthcare Workers" %}selected{% endif %}>Healthcare Workers</option>
+                <option value="Others" {% if vaccine.vaccine_category == "Others" %}selected{% endif %}>Others</option>
+            </select>
+        </div>
+    
+        <div class="form-group">
+            <label><strong>Vaccine Name</strong></label>
+            <input type="text" name="vaccine_name" class="form-control" value="{{ vaccine.vaccine_name }}" readonly>
+        </div>
+    
+        <div class="form-group">
+            <label><strong>Number of Doses</strong></label>
+            <input type="number" name="doses" class="form-control" value="{{ vaccine.doses }}" required min="1">
+        </div>
+
+        <div class="form-group">
+            <label><strong>Availability</strong></label>
+            <select name="availability" class="form-control" required>
+                <option value="True" {% if vaccine.availability %}selected{% endif %}>Yes</option>
+                <option value="False" {% if not vaccine.availability %}selected{% endif %}>No</option>
+            </select>
+        </div>
+    
+        <div class="form-group">
+            <label><strong>Vaccine Details</strong></label>
+            <textarea name="vaccine_details" class="form-control" rows="4" required>{{ vaccine.vaccine_details }}</textarea>
+        </div>
+    
+        <div class="form-button-container">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+    </form>    
+</div>
+
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #555;
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(85, 85, 85, 0.5);
+}
+
+.form-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    width: 160px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #444;
+    color: white;
+}
+</style>
+{% endblock %}

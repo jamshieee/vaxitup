@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+<body>
+    <div class="content" style="padding-right: 400px; font: times-new-roman">
+        <h2>Welcome to VaxItUp<h2>
+            <p>create your account and book your vaccine to get healthiest</p>
+    </div>    
+    <div class="register-container">
+        <h1>Register</h1>
+        <form action="/register/" method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" value="{{ name }}" placeholder="Enter your name" required>
+                {% if errors.name_error %}
+                    <div style="color: red;">{{ errors.name_error }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ email }}" placeholder="Enter your email" required>
+                {% if errors.email_error %}
+                    <div style="color: red;">{{ errors.email_error }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" value="{{ phone }}" placeholder="Enter your phone number" required>
+                {% if errors.phone_error %}
+                    <div style="color: red;">{{ errors.phone_error }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                {% if errors.password_error %}
+                    <div style="color: red;">{{ errors.password_error }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Enter your password again" required>
+            </div>
+
+            <div class="form-group-checkbox">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Remember me</label>
+            </div>
+
+            <button type="submit" class="register-btn">Sign Up</button>
+        </form>
+        <div class="signin-link">
+            <p>Already have an account? <a href="{% url 'userlog' %}">Sign in</a></p>
+        </div>
+    </div>
+</body>
+</html>

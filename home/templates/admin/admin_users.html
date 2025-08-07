@@ -1,0 +1,136 @@
+
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<h2 class="title">User Management</h2>
+<div class="table-container">
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Profile</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr class="fade-in">
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    {% if user.profile_image %}
+                        <img src="{{ user.profile_image.url }}" class="profile-img" alt="User Profile">
+                    {% else %}
+                        <img src="{% static './images/logou.jpg' %}" class="profile-img" alt="Default Profile">
+                    {% endif %}
+                </td>
+                <td>{{ user.Name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone }}</td>
+                <td>
+                    <form method="post" action="{% url 'reject_user' user.id %}" class="inline-form"
+                        onsubmit="return confirm('Are you sure you want to reject this user?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">
+                            ❌ Reject
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="no-data">No registered users.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- CSS Styles -->
+<style>
+    /* Page Title */
+    .title {
+        text-align: center;
+        font-size: 28px;
+        color: #2C3E50;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    .table-container {
+        max-width: 1100px;
+        margin: auto;
+        overflow-x: auto;
+    }
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #F8F9FA;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .styled-table th, .styled-table td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #34495E;
+    }
+    .styled-table th {
+        background-color: #2C3E50;
+        color: white;
+        font-weight: bold;
+        border-bottom: 2px solid white;
+    }
+    .styled-table tr:nth-child(even) {
+        background-color: #EAECEE;
+    }
+    .styled-table tr:hover {
+        background-color: #D5DBDB;
+    }
+    .profile-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #098886;
+    }
+    .no-data {
+        text-align: center;
+        font-size: 16px;
+        color: #555;
+        padding: 20px;
+    }
+    .btn {
+        padding: 8px 14px;
+        border: none;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 10px;
+        text-decoration: none;
+        display: inline-block;
+        transition: background 0.3s ease-in-out;
+    }
+    .btn-danger {
+        background-color: #E74C3C;
+        color: white;
+    }
+    .btn-danger:hover {
+        background-color: #C0392B;
+    }
+    .inline-form {
+        display: inline;
+    }
+    .fade-in {
+        animation: fadeInFast 1.0s ease-in-out;
+    }
+    @keyframes fadeInFast {
+        from {
+            opacity: 0;
+            transform: translateY(5px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<h2 class="title">Vaccinated Users</h2>
+
+<div class="filter-container">
+    <label for="monthFilter">Filter by Month:</label>
+    <select id="monthFilter" class="month-dropdown">
+        <option value="">All</option>
+        {% for month in months %}
+            <option value="{{ month }}">{{ month }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="table-container">
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Patient Name</th>
+                <th>Username</th>
+                <th>Vaccine</th>
+                <th>Center</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            {% for user in vaccinated_users %}
+            <tr class="fade-in" data-month="{{ user.date|date:'F' }}">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.user.Name }}</td>
+                <td>{{ user.vaccine_name }}</td>
+                <td>{{ user.center.center_name }}</td>
+                <td>{{ user.date }}</td>
+                <td>
+                    {% if user.status == "completed" %}
+                        <span class="badge badge-success">Completed</span>
+                    {% elif user.status == "approved" %}
+                        <span class="badge badge-primary">Approved</span>
+                    {% elif user.status == "pending" %}
+                        <span class="badge badge-warning text-dark">Pending</span>
+                    {% elif user.status == "rejected" %}
+                        <span class="badge badge-danger">Rejected</span>
+                    {% else %}
+                        <span class="badge badge-secondary">Unknown</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7" class="no-data">No vaccinated users available.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- CSS Styles -->
+<style>
+    .title {
+        text-align: center;
+        font-size: 28px;
+        color: #2C3E50;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    .filter-container {
+        display: flex;
+        justify-content: end;
+        margin-bottom: 10px;
+        padding-right: 15px;
+    }
+    .month-dropdown {
+        padding: 5px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-left: 5px;
+    }
+    .table-container {
+        max-width: 1100px;
+        margin: auto;
+        overflow-x: auto;
+    }
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #F8F9FA;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .styled-table th, .styled-table td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #34495E;
+    }
+    .styled-table th {
+        background-color: #2C3E50;
+        color: white;
+        font-weight: bold;
+        border-bottom: 2px solid white;
+    }
+    .styled-table tr:nth-child(even) {
+        background-color: #EAECEE;
+    }
+    .styled-table tr:hover {
+        background-color: #D5DBDB;
+    }
+    .badge {
+        padding: 5px 10px;
+        font-size: 14px;
+        border-radius: 5px;
+        color: white;
+    }
+    .badge-success { background-color: #28a745; }
+    .badge-primary { background-color: #007bff; }
+    .badge-warning { background-color: #ffc107; }
+    .badge-danger { background-color: #dc3545; }
+    .badge-secondary { background-color: #6c757d; }
+    .no-data {
+        text-align: center;
+        font-size: 16px;
+        color: #555;
+        padding: 20px;
+    }
+</style>
+
+<!-- JavaScript -->
+<script>
+    document.getElementById("monthFilter").addEventListener("change", function() {
+        let selectedMonth = this.value;
+        let rows = document.querySelectorAll("#tableBody tr");
+
+        rows.forEach(row => {
+            let rowMonth = row.getAttribute("data-month");
+            if (selectedMonth === "" || rowMonth === selectedMonth) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    });
+</script>
+
+{% endblock %}

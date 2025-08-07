@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pdb
+*.egg-info/
+*.egg
+*.log
+
+# Django
+*.sqlite3
+db.sqlite3
+.env
+.env.*
+*.pot
+*.pyc
+*.pyo
+*.pyd
+
+# VSCode
+.vscode/
+
+# Virtual Environments
+env/
+ENV/
+.venv/
+venv/
+
+# Media and static files
+/media/
+/media/*
+/static/*
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+
+# Backup files
+*~
+*.bak
+
+# Certificates and sensitive files
+*.pem
+*.key
+*.crt
+
+# PDF and generated files
+*.pdf
+
+# Ignore notifications and other generated folders
+/notifications/
+
+# Ignore migrations cache
+*/migrations/__pycache__/
+
+# Ignore test output
+htmlcov/
+.coverage
+
+# Ignore Jupyter Notebooks checkpoints
+.ipynb_checkpoints/

@@ -1,0 +1,232 @@
+
+body {
+line-height: 1.6;
+background: linear-gradient(to bottom, #ffffff, #ffffffee); /* Light gradient background */
+color: #333;
+}
+.home-banner {
+    background: linear-gradient(to bottom, rgba(161, 160, 160, 0.352), rgba(255, 255, 255, 0.674)), url('../images/home.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    position: relative;
+    padding: 50px 20px;
+}
+.to-white\/50 {
+    --tw-gradient-to: rgb(255 255 255 / 0.5) var(--tw-gradient-to-position);
+  }
+  .from-white\/90 {
+    --tw-gradient-from: rgba(255, 255, 255, 0.83) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(255 255 255 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  }
+  .bg-gradient-to-r {
+    background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  }
+
+  .text-gray-900 {
+    --tw-text-opacity: 1;
+    color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+  }
+  .font-bold {
+    font-weight: 700;
+  }
+  .text-5xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+  .mb-6 {
+    margin-bottom: 1.5rem;
+  }  
+
+  .text-gray-700 {
+    --tw-text-opacity: 1;
+    color: rgb(55 65 81 / var(--tw-text-opacity, 1));
+  }
+  .text-xl {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+  .mb-8 {
+    margin-bottom: 2rem;
+  }
+
+  .px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .z-10 {
+    z-index: 10;
+  }
+  .relative {
+    position: relative;
+  }
+  .px-6 {
+    padding-left: 1.2rem;
+    padding-right: 1.5rem;
+  }
+  .mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .z-10 {
+    z-index: 10;
+  }
+  .relative {
+    position: relative;
+  }
+/* Main Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+/* Hero Section (Image + Description) */
+.hero {
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+margin-bottom: 40px;
+
+padding: 20px;
+box-shadow: 15px 17px 2px #14518e1b;
+border-radius: 15px;
+}
+
+.hero img {
+    max-width: 50%;
+    border-radius: 8px;
+}
+.hero-image img {
+  width: 350px; /* Adjust size as needed */
+  height: auto;
+  border-radius: 10px;
+}
+.hero .description {
+    max-width: 45%;
+    padding: 20px;
+}
+
+.hero h1 {
+    font-size: 32px;
+    color: #14518e;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #000000;
+}
+
+/* Booking Steps Section */
+.steps {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;  /* Ensures the cards stay in one line */
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.steps .step-card {
+background: linear-gradient(to bottom, rgba(255, 255, 255, 0.726), rgba(0, 137, 250, 0.414)); /* Gradient inside the card */
+border: 2px solid #9e9e9e; /* Blue outer border */
+border-radius: 8px;
+padding: 20px;
+width: 30%;
+text-align: center;
+box-shadow: 0 14px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.steps .step-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+}
+
+
+.steps .step-card img {
+    width: 80px;
+    margin-bottom: 15px;
+}
+
+.steps .step-card h3 {
+    font-size: 20px;
+    color: #0078D7;
+    margin-bottom: 10px;
+}
+
+.steps .step-card p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Arrows Between Cards */
+.step-arrow {
+    font-size: 50px; /* Increase the size of the arrow */
+    color: #0078D7;
+    font-weight: bold; /* Make the arrow bolder */
+    text-align: center;
+    width: 10%;
+}
+
+/* Explore Button */
+.explore-btn {
+    display: block;
+    width: 200px;
+    margin: 30px auto;
+    padding: 10px;
+    text-align: center;
+    background-color: #14518e;
+    color: white;
+    font-size: 18px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.explore-btn:hover {
+    background-color: #14518e;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero img {
+        max-width: 80%;
+        margin-bottom: 20px;
+    }
+
+    .hero .description {
+        max-width: 80%;
+        text-align: center;
+    }
+
+    .steps {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .steps .step-card {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+
+    .step-arrow {
+        display: none;
+    }
+}

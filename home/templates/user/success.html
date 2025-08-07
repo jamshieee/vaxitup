@@ -1,0 +1,32 @@
+{% extends "master.html" %}
+{% block content %}
+{% load static %}
+
+<div class="container text-center mt-5">
+    <div class="card shadow p-4">
+        <h2 class="text-success">Booking Confirmed! ✅</h2>
+        <p class="lead">Thank you for booking your vaccine slot.</p>
+        
+        <div class="mt-4">
+            <p><strong>Health Center:</strong> {{ booking.center.center_name }}</p>
+            <p><strong>Selected Vaccine:</strong> {{ booking.selected_vaccine }}</p>
+            <p><strong>Date:</strong> {{ booking.date }}</p>
+            <p><strong>Time:</strong> {{ booking.time }}</p>
+        </div>
+
+        <a href="{% url 'home' %}" class="btn btn-primary mt-3">Go to Home</a>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 500px;
+        margin-top: 100px;
+    }
+    .card {
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.95);
+    }
+</style>
+
+{% endblock %}

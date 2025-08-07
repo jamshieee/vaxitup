@@ -1,0 +1,88 @@
+{% extends "base.html" %}  
+
+{% block content %}
+{% load static %}
+<h2 class="title">User Feedbacks</h2>
+<div class="table-container">
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Feedback</th>
+                <th>Rating</th>
+                <th>Date Submitted</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for feedback in feedbacks %}
+            <tr class="fade-in">
+                <td>{{ feedback.user.Name }}</td>
+                <td>{{ feedback.feedback }}</td>
+                <td>{% for _ in ""|rjust:feedback.rating %} ⭐ {% endfor %}</td>
+                <td>{{ feedback.created_at|date:"M d, Y H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="no-data">No feedback available.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .title {
+        text-align: center;
+        font-size: 28px;
+        color: #2C3E50;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    .table-container {
+        max-width: 1100px;
+        margin: auto;
+        overflow-x: auto;
+    }
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #F8F9FA;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .styled-table th, .styled-table td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #34495E;
+    }
+    .styled-table th {
+        background-color: #2C3E50;
+        color: white;
+        font-weight: bold;
+        border-bottom: 2px solid white;
+    }
+    .styled-table tr:nth-child(even) {
+        background-color: #EAECEE;
+    }
+    .styled-table tr:hover {
+        background-color: #D5DBDB;
+    }
+    .no-data {
+        text-align: center;
+        font-size: 16px;
+        color: #555;
+        padding: 20px;
+    }
+    .fade-in {
+        animation: fadeInFast 1.0s ease-in-out;
+    }
+    @keyframes fadeInFast {
+        from {
+            opacity: 0;
+            transform: translateY(5px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}

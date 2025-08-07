@@ -1,0 +1,130 @@
+{% extends "centermain.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+.edit-container {
+    max-width: 500px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.edit-container h2 {
+    color: #098886;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+    color: #098886;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.save-btn {
+    background: #098886;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.save-btn:hover {
+    background: #07706a;
+}
+
+/* Profile image styles */
+.profile-image-container {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    border: 3px solid #098886;
+}
+
+.file-input {
+    text-align: center;
+    margin-top: 10px;
+}
+</style>
+
+<div class="edit-container">
+    <h2>Edit Profile</h2>
+    
+    <form method="POST" enctype="multipart/form-data" action="{% url 'edit_center_profile' center_id=center.center_id %}">
+        {% csrf_token %}
+
+        <!-- Profile Image Section -->
+        <div class="profile-image-container">
+            {% if center.profile_image %}
+                <img id="profilePreview" src="{{ center.profile_image.url }}" class="profile-image" alt="Profile Photo">
+            {% else %}
+                <img id="profilePreview" src="{% static 'images/default-profile.png' %}" class="profile-image" alt="Default Profile Photo">
+            {% endif %}
+            
+            <div class="file-input">
+                <input type="file" name="profile_image" id="profileImageInput" accept="image/*">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Center Name</label>
+            <input type="text" name="center_name" value="{{ center.center_name }}">
+        </div>
+
+        <div class="form-group">
+            <label>Phone</label>
+            <input type="text" name="phone" value="{{ center.phone }}">
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" value="{{ center.email }}">
+        </div>
+
+        <button type="submit" class="save-btn">Save Changes</button>
+    </form>
+</div>
+
+<script>
+document.getElementById("profileImageInput").addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById("profilePreview").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+
+{% endblock %}

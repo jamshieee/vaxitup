@@ -1,0 +1,162 @@
+{% extends "centermain.html" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/centerhome.css' %}">
+<style>
+/* General Styles */
+body {
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Center Profile Section */
+.profile-header {
+    color:rgb(0, 0, 0);
+    padding: 30px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 100px;
+    margin: 20px;
+    width: 93%;
+}
+
+/* Main Grid Container - 3 Cards Per Row */
+.main-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cards in a row */
+    gap: 15px;
+    padding: 20px;
+    justify-content: center; /* Center align the grid */
+}
+
+/* Card Styles - Decreased Width */
+.card {
+    background-color: white;
+    border-radius: 15px; /* Rounded shapes */
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+    width: 80%; /* Reduced width */
+    height: 100px; /* Smaller height */
+    margin: auto; /* Centering the cards */
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Card Icons */
+.card i {
+    font-size: 20px;
+    color: #098886;
+    margin-bottom: 5px;
+}
+
+/* Card Text */
+.card h3 {
+    font-size: 14px;
+    margin-bottom: 3px;
+    color: #333;
+}
+
+.card p {
+    font-size: 12px;
+    color: #777;
+    margin: 0;
+}
+
+/* Button Styles */
+.card button {
+    padding: 6px 12px;
+    background-color: #098886;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 5px;
+    transition: background 0.3s ease;
+}
+
+.card button:hover {
+    background-color: #07706a;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .main-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row on tablets */
+    }
+    .card {
+        width: 90%; /* Slightly increase width on smaller screens */
+    }
+}
+
+@media (max-width: 600px) {
+    .main-container {
+        grid-template-columns: 1fr; /* 1 card per row on mobile */
+    }
+    .card {
+        width: 100%; /* Full width on mobile */
+    }
+}
+</style>
+
+<!-- Center Name Header -->
+<div class="profile-header">
+    {{ center_name }} Health Center
+</div>
+
+<!-- Main Container -->
+<div class="main-container">
+    <div class="card">
+        <i class="fas fa-syringe"></i>
+        <h3>Vaccines</h3>
+        <p>Update available vaccines.</p>
+        <button onclick="window.location.href='{% url 'add_vaccines' %}'">Update</button>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-history"></i>
+        <h3>History</h3>
+        <p>View vaccination records.</p>
+        <button onclick="window.location.href='{% url 'display_vaccines' %}'">View</button>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-users-cog"></i>
+        <h3>Users</h3>
+        <p>Vaccinated Users</p>
+        <button onclick="window.location.href='{% url 'completed_users_view' %}'">Completed Users</button>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-calendar-check"></i>
+        <h3>Bookings</h3>
+        <p>Schedule appointments.</p>
+        <button onclick="window.location.href='{% url 'center_bookings' %}'">Schedule</button>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-calendar-calendar"></i>
+        <h3>Holidays</h3>
+        <p>Add Holidays of Centers</p>
+        <button onclick="window.location.href='{% url 'view_holidays' %}'">Holidays</button>
+    </div>
+    
+    <div class="card">
+        <i class="fas fa-users-cog"></i>
+        <h3>Users</h3>
+        <p>Vaccine booking Cancelled</p>
+        <button onclick="window.location.href='{% url 'cancelled_users' %}'">Cancelled Users</button>
+    </div>
+</div>
+
+{% endblock %}

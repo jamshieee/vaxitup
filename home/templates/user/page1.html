@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaccine Booking - Home</title>
+    <style>
+        :root {
+            --primary-color: #c59650; /* Teal */
+            /* --secondary-color: #fd7e14; Orange */
+            --secondary-color:  #14518e;
+            --background-color: #f1f1f1;
+            --text-color: #343a40;
+            --white: #fff;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: var(--background-color);
+            color: var(--text-color);
+        }
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            transition: background 0.3s ease;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: transparent;
+            transition: background 0.3s ease;
+        }
+        .scrolled {
+            background: var(--secondary-color);
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--white);
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 100px 10%;
+            background: url('https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/12/GettyImages-1230013738_header-1024x575.jpg') no-repeat center center/cover;
+            height: 100vh;
+            color: var(--white);
+            text-align: left;
+        }
+        .hero-text {
+            max-width: 50%;
+        }
+        .hero h1 {
+            font-size: 3em;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .hero-img {
+            max-width: 45%;
+        }
+        .hero-img img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 12px 24px;
+            margin: 10px;
+            font-size: 1.1em;
+            color: var(--white);
+            background: var(--primary-color);
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .btn.center {
+            background: green;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .section {
+            padding: 80px 10%;
+            text-align: center;
+            background: var(--background-color);
+            margin: 40px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 1100px;
+        }
+        .gallery {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .gallery img {
+            width: 400px;
+            height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background: var(--secondary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">VaxItUp</div>
+        </nav>
+    </header>
+    
+    <div id="home" class="hero">
+        <div class="hero-text">
+            <h1>Book Your Vaccine Easily</h1>
+            <p>Secure your health by booking a vaccine appointment at your nearest center with just a few clicks.</p>
+            <div class="buttons">
+                <button class="btn"> <a style="text-decoration: none ; color: var(--white);" href="{% url 'DBLogin' %}">Login as User</a></button>
+                <button class="btn center"><a style="text-decoration: none ; color: var(--white);" href="/center_registration/">Login as Vaccine Center</a></button>
+            </div>
+        </div>
+    </div>
+    {% comment %} <div id="about" class="section">
+        <h2>How It Works</h2>
+        <p>✔ Users can book a vaccine appointment based on their location.</p>
+        <p>✔ Vaccine centers can manage vaccine availability and appointments.</p>
+        <p>✔ A seamless and secure system for hassle-free vaccinations.</p>
+    </div>
+    <div id="book" class="section">
+        <h2>Why Choose Our Platform?</h2>
+        <p>✔ Easy and quick online booking process.</p>
+        <p>✔ Verified vaccine centers ensuring safety.</p>
+        <p>✔ Automated reminders for upcoming appointments.</p>
+        <p>✔ Secure system to protect user data and privacy.</p>
+    </div>
+    {% comment %} <div class="section">
+        <h2>Gallery</h2>
+        <div class="gallery">
+            <img src="https://imageio.forbes.com/specials-images/imageserve/67c0e2e39c873a488ef01824/Inter-de-Limeira-v-Santos---Campeonato-Paulista-2025/960x0.jpg?format=jpg&width=960" alt="Vaccine administration">
+            <img src="https://avatars.mds.yandex.net/get-vthumb/3429434/df40e3770e6696d555125d9abce14daa/564x318_1" alt="Healthcare workers">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvihoZZzF-yO5JgTFt45w-uV13PSEyk-woRJbH3-vGTw1lV4RyOuqneHyj9u3xWgh_NUk&usqp=CAU" alt="People getting vaccinated">
+        </div>
+    </div> 
+    <div id="contact" class="section">
+        <h2>Frequently Asked Questions</h2>
+        <p><strong>Q: How do I book a vaccine?</strong></p>
+        <p>A: Simply register, choose a nearby vaccine center, and select a time slot.</p>
+        <p><strong>Q: Is my data secure?</strong></p>
+        <p>A: Yes, we follow strict data security guidelines to protect your privacy.</p>
+        <p><strong>Q: Can I cancel or reschedule my appointment?</strong></p>
+        <p>A: Yes, users can modify their appointment through their account dashboard.</p>
+    </div> 
+    <footer>
+        <p>&copy; 2025 Vaccine Booking System. All Rights Reserved.</p>
+        <p>Contact us: support@vaccinebooking.com</p>
+    </footer>{% endcomment %}
+</body>
+</html>

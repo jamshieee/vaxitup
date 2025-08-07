@@ -1,0 +1,30 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.btn-primary {
+    background-color: #098886;
+    border-color: #098886;
+}
+
+.btn-primary:hover {
+    background-color: #007b76;
+    border-color: #007b76;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+.table {
+    margin-top: 30px;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f2f2f2;
+}

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Center Registration</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('{% static "images/center-reg.jpg" %}') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+        }
+        /* Overlay for better contrast */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(44, 62, 80, 0.45); /* dark overlay */
+            z-index: 0;
+        }
+        .center-outer {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .form-container {
+            max-width: 500px;
+            width: 100%;
+            padding: 36px 32px 28px 32px;
+            background: rgba(45, 76, 109, 0.85);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(44,62,80,0.18);
+            margin: 32px 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .form-row div {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color:#f0f0f0;
+            font-size: 14px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #5fa8d3;
+            font-size: 15px;
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #1a1a1a;
+        }
+
+        input:focus, select:focus {
+            border-color: #00fcf8;
+            outline: none;
+            box-shadow: 0 0 5px rgba(9, 136, 134, 0.3);
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        button {
+            background: #1abc9c;
+            color: ffffff;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #16a085;
+        }
+
+        p { 
+            text-align: center; 
+            margin-top: 12px;
+        }
+
+        a {
+            color: #00bcd4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #00acc1;
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            let valid = true;
+
+            function checkField(id, regex, errorMsg) {
+                let field = document.getElementById(id);
+                let errorSpan = document.getElementById(id + "Error");
+
+                if (field.value.trim() === "") {
+                    errorSpan.innerText = "This field is required.";
+                    errorSpan.style.display = "block";
+                    valid = false;
+                } else if (regex && !regex.test(field.value)) {
+                    errorSpan.innerText = errorMsg;
+                    errorSpan.style.display = "block";
+                    valid = false;
+                } else {
+                    errorSpan.style.display = "none";
+                }
+            }
+
+            checkField("id_center_name", /^[a-zA-Z0-9\s]+$/, "Only letters and numbers allowed.");
+            checkField("id_center_id", /^\d{7}$/, "Center ID must be exactly 7 digits.");
+            checkField("id_phone", /^\d{10}$/, "Phone must be exactly 10 digits.");
+            checkField("id_email", /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Enter a valid email.");
+            checkField("id_username", /^\S+$/, "Username cannot contain spaces.");
+            checkField("id_password", /^.{6,}$/, "Password must be at least 6 characters.");
+            
+            // Check Dropdown Fields
+            let district = document.getElementById("id_district");
+            let districtError = document.getElementById("id_districtError");
+            if (district.value === "") {
+                districtError.style.display = "block";
+                valid = false;
+            } else {
+                districtError.style.display = "none";
+            }
+
+            if (!valid) {
+                event.preventDefault();
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="center-outer">
+<div class="form-container">
+    <h2 style="color:#ffffff; font-size:2rem; font-weight:700; margin-bottom:18px; text-align:center; letter-spacing:1px;">Center Registration</h2>
+    
+    {% if form.errors %}
+        <div class="error-message">
+            <ul>
+                {% for field in form %}
+                    {% if field.errors %}
+                        <li>{{ field.label }}: {{ field.errors|striptags }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="POST" action="{% url 'center_registration' %}" onsubmit="validateForm(event)" autocomplete="off" style="margin-top:10px;">
+        {% csrf_token %}
+
+        <div class="form-row">
+            <div>
+                <label for="id_center_name">Center Name:</label>
+                {{ form.center_name }}
+                <span class="error" id="id_center_nameError"></span>
+            </div>
+            <div>
+                <label for="id_center_id">Center ID:</label>
+                {{ form.center_id }}
+                <span class="error" id="id_center_idError"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div>
+                <label for="id_phone">Phone:</label>
+                {{ form.phone }}
+                <span class="error" id="id_phoneError"></span>
+            </div>
+            <div>
+                <label for="id_email">Email:</label>
+                {{ form.email }}
+                <span class="error" id="id_emailError"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div>
+                <label for="id_thaluk">Thaluk:</label>
+                {{ form.thaluk }}
+                <span class="error" id="id_thalukError"></span>
+            </div>
+            <div>
+                <label for="id_district">District:</label>
+                <select id="id_district" name="district">
+                    <option value="">Select District</option>
+                    <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                    <option value="Kollam">Kollam</option>
+                    <option value="Pathanamthitta">Pathanamthitta</option>
+                    <option value="Alappuzha">Alappuzha</option>
+                    <option value="Kottayam">Kottayam</option>
+                    <option value="Idukki">Idukki</option>
+                    <option value="Ernakulam">Ernakulam</option>
+                    <option value="Thrissur">Thrissur</option>
+                    <option value="Palakkad">Palakkad</option>
+                    <option value="Malappuram">Malappuram</option>
+                    <option value="Kozhikode">Kozhikode</option>
+                    <option value="Wayanad">Wayanad</option>
+                    <option value="Kannur">Kannur</option>
+                    <option value="Kasaragod">Kasaragod</option>
+                </select>
+                <span class="error" id="id_districtError">Please select a district.</span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div>
+                <label for="id_username">Username:</label>
+                {{ form.username }}
+                <span class="error" id="id_usernameError">This field is required.</span>
+            </div>
+            <div>
+                <label for="id_password">Password:</label>
+                {{ form.password }}
+                <span class="error" id="id_passwordError">This field is required.</span>
+            </div>
+        </div>
+
+        <button type="submit" style="background:#098886; color:white; padding:14px; border:none; border-radius:6px; cursor:pointer; width:100%; font-size:17px; font-weight:600; margin-top:10px; letter-spacing:1px; box-shadow:0 2px 8px rgba(9,136,134,0.08); transition:background 0.2s;">Register</button>
+    </form>    
+
+    <p style="text-align:center; margin-top:16px;">Already have an account? <a href="{% url 'center_login' %}" style="color:#098886; font-weight:600;">Login here</a></p>
+
+</div>
+</div>
+
+</body>
+</html>

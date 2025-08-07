@@ -1,0 +1,47 @@
+{% extends "centermain.html" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/viewvaccine.css' %}">
+<center>
+<div class="container mt-5">
+    <h2 class="king">Vaccines Added By The Center</h2>
+    {% if vaccines %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>N</th>
+                    <th>Vaccine Name</th>
+                    <th>Vaccine category</th>
+                    <th>Doses</th>
+                    <th>Details</th>
+                    <th>Availability</th>
+                    <th style="padding: 40px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vaccine in vaccines %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ vaccine.vaccine_name }}</td>
+                    <td>{{ vaccine.vaccine_category }}</td>
+                    <td>{{ vaccine.doses }}</td>
+                    <td>{{ vaccine.vaccine_details }}</td>
+                    <td>{% if vaccine.availability %}Yes{% else %}No{% endif %}</td> 
+                    <td>
+                        <!-- Edit and Delete buttons -->
+                        <a href="{% url 'edit_vaccine' vaccine.id %}" class="btn btn-primary btn-sm">Edit</a>
+                        <form action="{% url 'delete_vaccine' vaccine.id %}" method="POST" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No vaccines available for this center.</p>
+    {% endif %}
+</div>
+</center>
+{% endblock %}
