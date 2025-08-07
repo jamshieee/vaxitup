@@ -12,48 +12,36 @@ You may not:
 ⚠ Unauthorized use may result in legal action.
 
 
-\# Vaccine Center Registration System 
+# 💉 Online Vaccine Booking System
 
+An online vaccine slot booking system built using **Django** and **PostgreSQL**, designed to simplify and digitize the process of scheduling vaccination appointments.  
+Currently developed for selected states, with scalability in mind to expand nationwide under government administration.
 
-A web-based registration system built using \*\*Django\*\* for registering vaccine centers across Kerala.
+---
 
+## 🚀 Features
 
+- 🔐 User Registration & Login
+- 📅 Vaccine Slot Booking by District
+- 🏥 Government Health Center Management
+- 📋 Admin Panel for Monitoring Bookings
+- 🗓️ View Available Dates and Times
+- 📱 Mobile-responsive UI (HTML, CSS, JS)
 
-\## 📌 Features
+---
 
+## 🛠️ Tech Stack
 
+- **Backend:** Django (Python)
+- **Frontend:** HTML5, CSS3, JavaScript
+- **Database:** PostgreSQL
+- **Hosting:** (coming soon or local development)
 
-\- Register vaccine centers with ID, contact info, location, and login credentials
-
-\- Responsive front-end with HTML/CSS
-
-\- Data stored in PostgreSQL / SQLite (customizable)
-
-\- User authentication (center login)
-
-
-
-\##Tech Stack
-
-
-
-\- \*\*Backend:\*\* Django (Python)
-
-\- \*\*Frontend:\*\* HTML5, CSS3, Bootstrap, Js
-
-\- \*\*Database:\*\* SQLite (default), can be upgraded to PostgreSQL
-
-\- \*\*Version Control:\*\* Git \& GitHub
-
-
-
+- 
 \##Setup Instructions
 
 
-
 1\. \*\*Clone the repo:\*\*
-
-
 
 ```bash
 
@@ -86,7 +74,7 @@ cd your-repo
 
 &nbsp;	A 16-digit app password will be generated. Copy and save it securely, as it cannot be 	viewed again.
 
-
+```
 5. Now run makemigrations and migrate
 
 6. Now you can access the project by running python manage.py runserver
