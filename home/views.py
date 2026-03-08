@@ -21,6 +21,7 @@ from django.utils.dateparse import parse_datetime
 from django.utils.timezone import now
 from django.conf import settings
 import json, random
+from django.conf import settings
 
 
 
@@ -109,9 +110,9 @@ def register(request):
         send_mail(
             "Your OTP Code",
             f"Your OTP is: {otp_code}. It expires in 5 minutes.",
-            "your-email@example.com",
+            settings.DEFAULT_FROM_EMAIL,
             [email],
-            fail_silently=False,
+            fail_silently=True,
         )
 
         return redirect("verify_otp")
@@ -167,11 +168,11 @@ def resend_otp(request):
     request.session["temp_user"] = temp_user
 
     send_mail(
-        "Your New OTP Code",
-        f"Your new OTP is: {new_otp}. It expires in 5 minutes.",
-        "your-email@example.com",
+        "Your OTP Code",
+        f"Your OTP is: {new_otp}. It expires in 5 minutes.",
+        settings.DEFAULT_FROM_EMAIL,
         [temp_user["email"]],
-        fail_silently=False,
+        fail_silently=True,
     )
 
     messages.success(request, "A new OTP has been sent to your email.")
