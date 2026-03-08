@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'vaccination.wsgi.application'
 
 DATABASES = {
     "default": dj_database_url.config(
-        default=os.environ.get("DATABASE_URL")
+        default=os.environ.get("postgresql://vaxitup_db_main_user:YkiKRTQG0Ex1nZfJdG1lTj2JlBFyFyLF@dpg-d6mlnov5gffc73bhr7q0-a/vaxitup_db_main")
     )
 }
 
