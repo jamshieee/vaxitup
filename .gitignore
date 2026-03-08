@@ -27,6 +27,7 @@ env/
 ENV/
 .venv/
 venv/
+.env
 
 # Media and static files
 /media/
